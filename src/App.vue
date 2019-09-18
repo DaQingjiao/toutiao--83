@@ -1,10 +1,4 @@
 <template>
-  <div id="app"></div>
+  <!--项目根组件  一级容器 -->
+  <router-view></router-view>
 </template>
-
-<script>
-export default {}
-</script>
-
-<style>
-</style>
