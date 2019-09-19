@@ -16,7 +16,8 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 // Axios共享为所有实例
 Vue.prototype.$axios = Axios
-
+// 设置共享方法
+Axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0'
 new Vue({
   router,
   render: h => h(App)

@@ -63,10 +63,14 @@ export default {
       this.$refs.loginForm.validate(isok => {
         if (isok) {
           this.$axios({
-            url: 'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
+            url: '/authorizations',
             method: 'POST',
             data: this.loginForm
-          }).then(res => this.$router.push('./home')).catch(() => {
+          }).then(res => {
+            // 本地存储令牌
+            window.localStorage.setItem('user-token', res.data.data.token)
+            this.$router.push('./home')
+          }).catch(() => {
             // 当不满足设置的规则时的提示信息
             this.$message({
               type: 'warning',
