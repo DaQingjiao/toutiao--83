@@ -53,7 +53,7 @@ export default {
     },
     commonClick (key) {
       if (key === 'account') {
-        // 个人信息
+        this.$router.push('/home/account')
       } else if (key === 'git') {
         window.location.href = 'https://github.com/DaQingjiao/toutiao--83/commits/master'
       } else {
