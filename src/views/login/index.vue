@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <el-card class="login-card">
+    <el-card class="login-card" style="border-radius: 0">
       <div class="title">
         <img src="../../assets/img/logo_index.png" />
       </div>
@@ -66,17 +66,19 @@ export default {
             url: '/authorizations',
             method: 'POST',
             data: this.loginForm
-          }).then(res => {
-            // 本地存储令牌
-            window.localStorage.setItem('user-token', res.data.data.token)
-            this.$router.push('./home')
-          }).catch(() => {
-            // 当不满足设置的规则时的提示信息
-            this.$message({
-              type: 'warning',
-              message: '您的手机号或者验证码错误'
-            })
           })
+            .then(res => {
+              // 本地存储令牌
+              window.localStorage.setItem('user-token', res.data.data.token)
+              this.$router.push('./home')
+            })
+            .catch(() => {
+              // 当不满足设置的规则时的提示信息
+              this.$message({
+                type: 'warning',
+                message: '您的手机号或者验证码错误'
+              })
+            })
         }
       })
     }
@@ -93,12 +95,12 @@ export default {
   justify-content: center;
   align-items: center;
   .login-card {
-    width: 440px;
-    height: 330px;
+    width: 400px;
+    height: 325px;
     .title {
       text-align: center;
       img {
-        height: 45px;
+        height: 40px;
       }
     }
   }

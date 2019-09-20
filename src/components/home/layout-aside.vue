@@ -57,7 +57,7 @@ export default {}
   .title {
     text-align: center;
     background-color: #2e2f32;
-    padding: 12px 0;
+    padding: 13px 0;
     img {
       height: 30px;
     }
