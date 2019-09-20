@@ -14,12 +14,12 @@
       active-text-color="#ffd04b"
     >
       <!-- 首页 -->
-      <el-menu-item index="./home">
+      <el-menu-item index="/home">
         <i class="el-icon-s-home"></i>
         <span slot="title">首页</span>
       </el-menu-item>
       <!-- 内容管理 -->
-      <el-submenu index="2">
+      <el-submenu index="/home/publish">
         <template slot="title">
           <i class="el-icon-menu"></i>
           <span>内容管理</span>
@@ -30,7 +30,7 @@
         <el-menu-item index="/home/material">素材列表</el-menu-item>
       </el-submenu>
       <!-- 粉丝管理 -->
-      <el-submenu index="3">
+      <el-submenu index="/home/gradata">
         <template slot="title">
           <i class="el-icon-s-custom"></i>
           <span>粉丝管理</span>
@@ -57,7 +57,6 @@ export default {}
 .layout-aside {
   width: 200px;
   height: 100vh;
-  background-color: #323745;
   .title {
     text-align: center;
     background-color: #2e2f32;

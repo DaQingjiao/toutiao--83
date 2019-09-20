@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Home from './views/home'
 // 引入login/路由级组件
 import Login from './views/login'
+import Main from './views/home/main'
 
 // 全局注册 vue-router
 Vue.use(Router)
@@ -17,7 +18,11 @@ export default new Router({
     },
     {
       path: '/home',
-      component: Home
+      component: Home,
+      children: [{
+        path: '',
+        component: Main
+      }]
     },
     {
       path: '/login',
