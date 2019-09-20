@@ -18,15 +18,7 @@
 </template>
 
 <script>
-import Aside from '../../components/home/layout-aside'
-import Header from '../../components/home/layout-header'
-export default {
-  components: {
-    'layout-aside': Aside,
-    'layout-header': Header
 
-  }
-}
 </script>
 
 <style>
