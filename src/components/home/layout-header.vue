@@ -48,7 +48,7 @@ export default {
         url: '/user/profile'
         // headers: { Authorization: `Bearer ${token}` }
       }).then(res => {
-        this.userInfo = res.data.data
+        this.userInfo = res.data
       })
     },
     commonClick (key) {

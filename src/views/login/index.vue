@@ -66,19 +66,11 @@ export default {
             url: '/authorizations',
             method: 'POST',
             data: this.loginForm
+          }).then(res => {
+            // 本地存储令牌
+            window.localStorage.setItem('user-token', res.data.token)
+            this.$router.push('./home')
           })
-            .then(res => {
-              // 本地存储令牌
-              window.localStorage.setItem('user-token', res.data.data.token)
-              this.$router.push('./home')
-            })
-            .catch(() => {
-              // 当不满足设置的规则时的提示信息
-              this.$message({
-                type: 'warning',
-                message: '您的手机号或者验证码错误'
-              })
-            })
         }
       })
     }
