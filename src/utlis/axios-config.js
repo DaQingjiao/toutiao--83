@@ -2,6 +2,11 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
 import router from '../promission'
+import jsonBigint from 'json-bigint'
+axios.defaults.transformResponse = [function (data) {
+  // data为响应回来的数据
+  return jsonBigint.parse(data)
+}]
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0' // 设置共享方法
 // config为axios默认选项，url\method\data等
 // axios.interceptors.request.use(函数1，函数2)
@@ -42,7 +47,10 @@ axios.interceptors.response.use(function (response) {
     default:
       break
   }
-  Message({ message, type: 'warning' }) // 在异常处理函数中将所有的错误处理完毕，不在进入catch
+  Message({
+    message,
+    type: 'warning'
+  }) // 在异常处理函数中将所有的错误处理完毕，不在进入catch
   return Promise(function () {}) // 终止当前的错误
 })
 

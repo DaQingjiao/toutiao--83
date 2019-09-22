@@ -12,9 +12,13 @@
       <el-table-column prop="total_comment_count" label="总评论数" align="center"></el-table-column>
       <el-table-column prop="fans_comment_count" label="粉丝评论数" align="center"></el-table-column>
       <el-table-column label="操作" align="center">
-        <template slot-scope="scope">
-          <el-button size="mini">Edit</el-button>
-          <el-button size="mini" type="warning" @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+        <template slot-scope="obj">
+          <el-button size="mini">编辑</el-button>
+          <el-button
+            size="mini"
+            type="warning"
+            @click="switchstate(obj.row)"
+          >{{obj.row.comment_status?'关闭评论':'打开评论'}}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -38,8 +42,24 @@ export default {
       })
     },
     formatter (row, column, cellValue, index) {
-      // row为当前数据, column为状态值, cellValue, index为索引
+      // row为当前行数据, column为列信息, cellValue为当前单元格值, index为索引
       return cellValue ? '正常' : '关闭'
+    },
+    switchstate (row) {
+      let kg = row.comment_status ? '关闭' : '打开'
+      this.$confirm(`是否确定${kg}评论?`, '提示', {
+        type: 'warning'
+      }).then(() => {
+        this.$axios({
+          url: 'comments/status',
+          method: 'PUT',
+          params: { article_id: row.id.toString() },
+          // 是否允许评论  取反：让点击改变评论状态
+          data: { allow_comment: !row.comment_status }
+        }).then(() => {
+          this.getComment()
+        })
+      })
     }
   },
   created () {
