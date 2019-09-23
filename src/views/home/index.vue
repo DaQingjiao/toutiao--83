@@ -6,7 +6,7 @@
     </el-aside>
     <el-container>
       <!-- 顶部 -->
-      <el-header>
+      <el-header style="background-color: #E4E7ED;">
         <layout-header></layout-header>
       </el-header>
       <el-main style="padding: 0">

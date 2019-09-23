@@ -22,6 +22,10 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-row type="flex" justify="center" style="margin: 15px">
+      <el-pagination @current-change="changepage" background layout="prev, pager, next" :total="page.total"
+      :current-page="page.pagecurrent" :page-size="page.pagesize"></el-pagination>
+    </el-row>
   </el-card>
 </template>
 
@@ -29,16 +33,23 @@
 export default {
   data () {
     return {
-      tableData: []
+      tableData: [],
+      page: {
+        total: 0, // 总条数
+        pagecurrent: 1, // 默认第一页
+        pagesize: 10 // 每页条数
+      }
     }
   },
   methods: {
     getComment () {
       this.$axios({
         url: '/articles',
-        params: { response_type: 'comment' } // 路径参数
+        // 路径参数
+        params: { response_type: 'comment', page: this.page.pagecurrent, per_page: this.page.pagesize }
       }).then(res => {
         this.tableData = res.data.results
+        this.page.total = res.data.total_count // 把总条数给分页总条数
       })
     },
     formatter (row, column, cellValue, index) {
@@ -60,6 +71,10 @@ export default {
           this.getComment()
         })
       })
+    },
+    changepage (newpage) {
+      this.page.pagecurrent = newpage
+      this.getComment()
     }
   },
   created () {

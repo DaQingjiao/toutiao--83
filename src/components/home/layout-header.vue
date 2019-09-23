@@ -70,9 +70,8 @@ export default {
 
 <style lang="less" scoped>
 .layout-header {
-  height: 50px;
-  background-color: #eee;
-  line-height: 50px;
+  height: 55px;
+  line-height: 55px;
   .left {
     .bg-purple {
       .icon {
