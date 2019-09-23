@@ -1,10 +1,10 @@
 <template>
-  <el-card>
+  <el-card v-loading="loading">
     <bread-crumb slot="header">
       <template slot="title">素材列表</template>
     </bread-crumb>
     <!-- 全部素材 -->
-    <el-tabs v-model="activeName" @tab-click='getMaterial'>
+    <el-tabs v-model="activeName" @tab-click="changeTab" >
       <el-tab-pane label="全部素材" name="all">
         <div class="img-list">
           <el-card
@@ -19,6 +19,16 @@
             </div>
           </el-card>
         </div>
+        <el-row type="flex" justify="center" style="margin-top: 15px">
+          <el-pagination
+            @current-change="changepage"
+            :total="page.total"
+            :current-page="page.pagecurrent"
+            :page-size="page.pagesize"
+            background
+            layout="prev, pager, next"
+          ></el-pagination>
+        </el-row>
       </el-tab-pane>
       <!-- 收藏素材 -->
       <el-tab-pane label="收藏素材" name="collect">
@@ -41,19 +51,39 @@ export default {
   data () {
     return {
       activeName: 'all',
-      list: []
+      list: [],
+      loading: false,
+      page: {
+        total: 0, // 总条数
+        pagecurrent: 1, // 默认第一页
+        pagesize: 12 // 每页条数
+      }
     }
   },
   methods: {
+    // 切换页签方法
+    changeTab () {
+      this.page.pagecurrent = 1
+      this.getMaterial()
+    },
     // 当点击 收藏素材 时，this.activeName==='collect' collect为true
     // 当点击 全部素材 时，this.activeName==='all' all为false
     getMaterial () {
+      this.loading = true
       this.$axios({
         url: '/user/images',
-        params: { collect: this.activeName === 'collect' }
+        params: { collect: this.activeName === 'collect',
+          page: this.page.pagecurrent,
+          per_page: this.page.pagesize }
       }).then(res => {
         this.list = res.data.results
+        this.page.total = res.data.total_count
+        this.loading = false
       })
+    },
+    changepage (newpage) {
+      this.page.pagecurrent = newpage
+      this.getMaterial()
     }
   },
   created () {
