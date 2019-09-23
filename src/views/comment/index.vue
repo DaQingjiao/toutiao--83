@@ -1,5 +1,5 @@
 <template>
-  <el-card>
+  <el-card v-loading="loading">
     <!-- slot="header"为卡片插槽 -->
     <bread-crumb slot="header">
       <!-- slot="title"为面包屑插槽 -->
@@ -38,11 +38,13 @@ export default {
         total: 0, // 总条数
         pagecurrent: 1, // 默认第一页
         pagesize: 10 // 每页条数
-      }
+      },
+      loading: false // 加载数据
     }
   },
   methods: {
     getComment () {
+      this.loading = true
       this.$axios({
         url: '/articles',
         // 路径参数
@@ -50,6 +52,7 @@ export default {
       }).then(res => {
         this.tableData = res.data.results
         this.page.total = res.data.total_count // 把总条数给分页总条数
+        this.loading = false
       })
     },
     formatter (row, column, cellValue, index) {
