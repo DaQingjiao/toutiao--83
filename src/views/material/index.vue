@@ -3,15 +3,19 @@
     <bread-crumb slot="header">
       <template slot="title">素材列表</template>
     </bread-crumb>
+    <el-upload  action="" :show-file-list="false" :http-request="uploadImg" class="fileimg">
+      <el-button size="small" type="primary">点击上传</el-button>
+    </el-upload>
     <!-- 全部素材 -->
-    <el-tabs v-model="activeName" @tab-click="changeTab" >
+    <el-tabs v-model="activeName" @tab-click="changeTab">
       <el-tab-pane label="全部素材" name="all">
         <div class="img-list">
           <el-card
             class="img-item"
             :body-style="{ padding: '10px' }"
             v-for="item in list"
-            :key="item.id">
+            :key="item.id"
+          >
             <img :src="item.url" alt />
             <div class="operate">
               <i :style="{color: item.is_collected? '#e0861a': '#666'}" class="el-icon-picture"></i>
@@ -37,7 +41,8 @@
             class="img-item"
             :body-style="{ padding: '10px' }"
             v-for="item in list"
-            :key="item.id">
+            :key="item.id"
+          >
             <img :src="item.url" alt />
           </el-card>
         </div>
@@ -61,6 +66,18 @@ export default {
     }
   },
   methods: {
+    // 自定义上传方法
+    uploadImg (params) {
+      let data = new FormData()
+      data.append('image', params.file)
+      this.$axios({
+        url: '/user/images',
+        method: 'POST',
+        data
+      }).then(() => {
+        this.getMaterial()
+      })
+    },
     // 切换页签方法
     changeTab () {
       this.page.pagecurrent = 1
@@ -69,16 +86,18 @@ export default {
     // 当点击 收藏素材 时，this.activeName==='collect' collect为true
     // 当点击 全部素材 时，this.activeName==='all' all为false
     getMaterial () {
-      this.loading = true
+      // this.loading = true
       this.$axios({
         url: '/user/images',
-        params: { collect: this.activeName === 'collect',
+        params: {
+          collect: this.activeName === 'collect',
           page: this.page.pagecurrent,
-          per_page: this.page.pagesize }
+          per_page: this.page.pagesize
+        }
       }).then(res => {
         this.list = res.data.results
         this.page.total = res.data.total_count
-        this.loading = false
+        // this.loading = false
       })
     },
     changepage (newpage) {
@@ -93,6 +112,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.fileimg {
+  position: absolute;
+  right: 35px;
+  margin-top:-5px;
+}
 .img-list {
   display: flex;
   flex-wrap: wrap;
