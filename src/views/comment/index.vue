@@ -1,4 +1,5 @@
 <template>
+  <!-- v-loading 指令 加载进度条 -->
   <el-card v-loading="loading">
     <!-- slot="header"为卡片插槽 -->
     <bread-crumb slot="header">
@@ -23,8 +24,14 @@
       </el-table-column>
     </el-table>
     <el-row type="flex" justify="center" style="margin: 15px">
-      <el-pagination @current-change="changepage" background layout="prev, pager, next" :total="page.total"
-      :current-page="page.pagecurrent" :page-size="page.pagesize"></el-pagination>
+      <el-pagination
+        @current-change="changepage"
+        background
+        layout="prev, pager, next"
+        :total="page.total"
+        :current-page="page.pagecurrent"
+        :page-size="page.pagesize"
+      ></el-pagination>
     </el-row>
   </el-card>
 </template>
@@ -44,15 +51,19 @@ export default {
   },
   methods: {
     getComment () {
-      this.loading = true
+      this.loading = true // 显示遮罩
       this.$axios({
         url: '/articles',
         // 路径参数
-        params: { response_type: 'comment', page: this.page.pagecurrent, per_page: this.page.pagesize }
+        params: {
+          response_type: 'comment',
+          page: this.page.pagecurrent,
+          per_page: this.page.pagesize
+        }
       }).then(res => {
         this.tableData = res.data.results
         this.page.total = res.data.total_count // 把总条数给分页总条数
-        this.loading = false
+        this.loading = false // 隐藏遮罩
       })
     },
     formatter (row, column, cellValue, index) {
