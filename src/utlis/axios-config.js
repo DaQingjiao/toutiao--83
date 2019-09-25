@@ -5,7 +5,7 @@ import router from '../promission'
 import jsonBigint from 'json-bigint'
 axios.defaults.transformResponse = [function (data) {
   // data为响应回来的数据
-  return jsonBigint.parse(data)
+  return data ? jsonBigint.parse(data) : ''
 }]
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0' // 设置共享方法
 // config为axios默认选项，url\method\data等
@@ -51,7 +51,7 @@ axios.interceptors.response.use(function (response) {
     message,
     type: 'warning'
   }) // 在异常处理函数中将所有的错误处理完毕，不在进入catch
-  return Promise(function () {}) // 终止当前的错误
+  return new Promise(function () { }) // 终止当前的错误
 })
 
 export default {
