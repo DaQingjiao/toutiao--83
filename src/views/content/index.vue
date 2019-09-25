@@ -5,7 +5,6 @@
         <template slot="title">内容列表</template>
       </bread-crumb>
       <el-form>
-
         <!-- 文章状态 -->
         <el-form-item label="文章状态:">
           <el-radio-group @change="stateChanges" v-model="formData.status">
@@ -37,9 +36,9 @@
     </el-card>
 
     <!-- 文章列表 -->
-    <el-card style="margin-top: 10px">
+    <el-card style="margin-top: 10px" v-loading="loading">
       <div class="title">共找到{{page.total}}条符合条件的内容</div>
-      <div class="article-item" v-for="(item,index) in list" :key="index">
+      <div class="article-item" v-for="item in list" :key="item.id.toString()">
         <div class="left">
           <img :src="item.cover.images.length?item.cover.images[0]:listImg" alt="" />
           <div class="list-content">
@@ -54,7 +53,7 @@
           </div>
         </div>
         <div class="right">
-          <span><i class="el-icon-edit"></i>修改</span>
+          <span @click="goEdit(item.id)"><i class="el-icon-edit"></i>修改</span>
           <span @click="delArticle(item.id)"><i class="el-icon-delete"></i>删除</span>
         </div>
       </div>
@@ -87,7 +86,8 @@ export default {
       list: [],
       getChannel: [],
       // 将图片地址转成base64
-      listImg: require('../../assets/img/404.png')
+      listImg: require('../../assets/img/404.png'),
+      loading: false
     }
   },
   filters: {
@@ -121,6 +121,11 @@ export default {
     }
   },
   methods: {
+    // 修改文章
+    goEdit (id) {
+      // 动态路由传参
+      this.$router.push(`/home/publish/${id.toString()}`)
+    },
     // 删除文章
     delArticle (id) {
       this.$confirm('是否确定删除该文章？').then(() => {
@@ -169,12 +174,14 @@ export default {
     },
     articleList (params) {
       // 获取文章列表
+      this.loading = true
       this.$axios({
         url: '/articles',
         params
       }).then((res) => {
         this.list = res.data.results
         this.page.total = res.data.total_count
+        this.loading = false
       })
     }
   },

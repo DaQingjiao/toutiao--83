@@ -36,6 +36,12 @@ export default new Router({
         component: () => import('./views/content')
       },
       {
+        // 修改文章路由-定义参数
+        path: 'publish/:id',
+        component: () => import('./views/publish')
+      },
+      {
+        // 新增文章路由
         path: 'publish',
         component: () => import('./views/publish')
       }
