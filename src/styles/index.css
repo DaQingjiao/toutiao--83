@@ -2,18 +2,9 @@ body {
   margin: 0;
   padding: 0;
 }
-
-// 这里会导致兼容elementUI的时间选择器的样式改变
-// *,
-// *:before,
-// *:after {
-//   box-sizing: inherit;
-// }
-
 li {
   list-style: none;
 }
-
 dl,
 dd,
 dt,
@@ -22,20 +13,16 @@ li {
   margin: 0;
   padding: 0;
 }
-
 .no-padding {
   padding: 0px !important;
 }
-
 .padding-content {
   padding: 4px 0;
 }
-
 a:focus,
 a:active {
   outline: none;
 }
-
 a,
 a:focus,
 a:hover {
@@ -43,39 +30,30 @@ a:hover {
   color: inherit;
   text-decoration: none;
 }
-
 b {
   font-weight: normal;
 }
-
 div:focus {
   outline: none;
 }
-
 .fr {
   float: right;
 }
-
 .fl {
   float: left;
 }
-
 .pr-5 {
   padding-right: 5px;
 }
-
 .pl-5 {
   padding-left: 5px;
 }
-
 .block {
   display: block;
 }
-
 .pointer {
   cursor: pointer;
 }
-
 .inlineBlock {
   display: block;
 }

@@ -1,5 +1,5 @@
 <template>
-  <el-card v-loading="loading">
+  <el-card>
     <bread-crumb slot="header">
       <template slot="title">素材列表</template>
     </bread-crumb>
@@ -8,7 +8,7 @@
       <el-button size="small" type="primary">点击上传</el-button>
     </el-upload>
     <!-- 全部素材 -->
-    <el-tabs v-model="activeName" @tab-click="changeTab">
+    <el-tabs v-model="activeName" @tab-click="changeTab" v-loading="loading">
       <el-tab-pane label="全部素材" name="all">
         <div class="img-list">
           <el-card class="img-item" :body-style="{ padding: '10px' }" v-for="item in list"

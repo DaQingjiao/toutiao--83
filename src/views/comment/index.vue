@@ -9,29 +9,22 @@
     <el-table :data="tableData" stripe>
       <!-- prop 为字段、label为表头 width为宽度-->
       <el-table-column prop="title" label="标题" width="400"></el-table-column>
-      <el-table-column :formatter="formatter" prop="comment_status" label="评论状态" align="center"></el-table-column>
+      <el-table-column :formatter="formatter" prop="comment_status" label="评论状态" align="center">
+      </el-table-column>
       <el-table-column prop="total_comment_count" label="总评论数" align="center"></el-table-column>
       <el-table-column prop="fans_comment_count" label="粉丝评论数" align="center"></el-table-column>
       <el-table-column label="操作" align="center">
         <template slot-scope="obj">
           <el-button size="mini">编辑</el-button>
-          <el-button
-            size="mini"
-            type="warning"
-            @click="switchstate(obj.row)"
-          >{{obj.row.comment_status?'关闭评论':'打开评论'}}</el-button>
+          <el-button size="mini" type="warning" @click="switchstate(obj.row)">
+            {{obj.row.comment_status?'关闭评论':'打开评论'}}</el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-row type="flex" justify="center" style="margin: 15px">
-      <el-pagination
-        @current-change="changepage"
-        background
-        layout="prev, pager, next"
-        :total="page.total"
-        :current-page="page.pagecurrent"
-        :page-size="page.pagesize"
-      ></el-pagination>
+      <el-pagination @current-change="changepage" background layout="prev, pager, next"
+        :total="page.total" :current-page="page.pagecurrent" :page-size="page.pagesize">
+      </el-pagination>
     </el-row>
   </el-card>
 </template>
