@@ -34,8 +34,16 @@
           <el-card class="img-item" :body-style="{ padding: '10px' }" v-for="item in list"
             :key="item.id">
             <img :src="item.url" alt />
+            <div class="operate">
+            </div>
           </el-card>
         </div>
+        <el-row type="flex" justify="center" style="margin-top: 15px">
+          <el-pagination @current-change="changepage" :total="page.total"
+            :current-page="page.pagecurrent" :page-size="page.pagesize" background
+            layout="prev, pager, next">
+          </el-pagination>
+        </el-row>
       </el-tab-pane>
     </el-tabs>
   </el-card>
