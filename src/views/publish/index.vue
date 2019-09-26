@@ -5,16 +5,19 @@
         <template slot="title">发布文章</template>
       </bread-crumb>
 
-      <el-form ref="publishDom" :model="formData" :rules="releaseRules" style="margin-left:52px">
+      <el-form ref="publishDom" :model="formData" :rules="releaseRules" label-width="100px">
+        <!-- 标题 -->
         <el-form-item prop="title" label="标题">
           <el-input v-model="formData.title" placeholder="请输入标题" style="width:400px"></el-input>
         </el-form-item>
+        <!-- 内容 -->
         <el-form-item prop="content" label="内容">
           <quill-editor v-model="formData.content" type="textarea"
-            style="width: 900px;height: 450px;margin-left: 50px">
+            style="width: 900px;height: 450px">
           </quill-editor>
         </el-form-item>
-        <el-form-item prop="cover" label="封面" style="margin-top: 110px">
+        <!-- 封面 -->
+        <el-form-item prop="cover" label="封面" style="margin-top: 120px">
           <el-radio-group v-model="formData.cover.type">
             <el-radio :label="1">单图</el-radio>
             <el-radio :label="3">三图</el-radio>
@@ -22,6 +25,7 @@
             <el-radio :label="-1">自动</el-radio>
           </el-radio-group>
         </el-form-item>
+        <!-- 频道 -->
         <el-form-item prop="channel_id" label="频道">
           <el-select v-model="formData.channel_id" placeholder="请选择频道">
             <el-option v-for="item in getChannel" :key="item.id" :label="item.name"
@@ -29,6 +33,7 @@
             </el-option>
           </el-select>
         </el-form-item>
+        <!-- 发布 -->
         <el-form-item>
           <el-button @click="publish(false)" type='primary'>发布</el-button>
           <el-button @click="publish(true)">存入草稿</el-button>
