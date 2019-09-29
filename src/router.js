@@ -24,14 +24,17 @@ export default new Router({
         component: Main
       },
       {
+        // 评论列表路由
         path: 'comment',
         component: () => import('./views/comment')
       },
       {
+        // 素材列表路由
         path: 'material',
         component: () => import('./views/material')
       },
       {
+        // 内容列表路由
         path: 'articles',
         component: () => import('./views/content')
       },
@@ -44,6 +47,11 @@ export default new Router({
         // 新增文章路由
         path: 'publish',
         component: () => import('./views/publish')
+      },
+      {
+        // 账户信息路由
+        path: 'account',
+        component: () => import('./views/account')
       }
       ]
     },

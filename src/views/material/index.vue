@@ -4,7 +4,7 @@
       <template slot="title">素材列表</template>
     </bread-crumb>
     <!-- 点击上传 -->
-    <el-upload action :show-file-list="false" :http-request="uploadImg" class="fileimg">
+    <el-upload action="" :show-file-list="false" :http-request="uploadImg" class="fileimg">
       <el-button size="small" type="primary">点击上传</el-button>
     </el-upload>
     <!-- 全部素材 -->
@@ -140,7 +140,7 @@ export default {
   flex-wrap: wrap;
   .img-item {
     position: relative;
-    width: 161px;
+    width: 159px;
     height: 130px;
     border-radius: 6px;
     margin: 10px;

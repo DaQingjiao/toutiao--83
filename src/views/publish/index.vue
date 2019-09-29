@@ -5,7 +5,8 @@
         <template slot="title">发布文章</template>
       </bread-crumb>
 
-      <el-form ref="publishDom" :model="formData" :rules="releaseRules" label-width="100px">
+      <el-form ref="publishDom" :model="formData" :rules="releaseRules" label-width="100px"
+        v-loading="loading">
         <!-- 标题 -->
         <el-form-item prop="title" label="标题">
           <el-input v-model="formData.title" placeholder="请输入标题" style="width:400px"></el-input>
@@ -18,13 +19,15 @@
         </el-form-item>
         <!-- 封面 -->
         <el-form-item prop="cover" label="封面" style="margin-top: 120px">
-          <el-radio-group v-model="formData.cover.type">
+          <el-radio-group @change="changeType" v-model="formData.cover.type">
             <el-radio :label="1">单图</el-radio>
             <el-radio :label="3">三图</el-radio>
             <el-radio :label="0">无图</el-radio>
             <el-radio :label="-1">自动</el-radio>
           </el-radio-group>
         </el-form-item>
+        <!-- 封面 -->
+        <cover-image @selectImg="changeImg" :images="formData.cover.images"></cover-image>
         <!-- 频道 -->
         <el-form-item prop="channel_id" label="频道">
           <el-select v-model="formData.channel_id" placeholder="请选择频道">
@@ -66,16 +69,35 @@ export default {
         channel_id: [{ required: true, message: '频道不能为空' }]
       },
       getChannel: [],
-      list: []
+      list: [],
+      loading: false
     }
   },
   methods: {
+    // 接受孙组件传过来的数据
+    changeImg (url, index) {
+      // 这种方式是错误的--以后一定要小心
+      // this.formData.cover.images[index] = url
+      this.formData.cover.images.splice(index, 1, url)
+    },
+    changeType () {
+      // 可获取最新的type-根据type决定images长度
+      if (this.formData.cover.type === 1) {
+        this.formData.cover.images = ['']
+      } else if (this.formData.cover.type === 3) {
+        this.formData.cover.images = ['', '', '']
+      } else {
+        this.formData.cover.images = []
+      }
+    },
     // 获取指定id文章信息
     getInformation (articleId) {
+      this.loading = true
       this.$axios({
         url: `/articles/${articleId}`
       }).then((res) => {
         this.formData = res.data
+        this.loading = false
       })
     },
     // 获取频道

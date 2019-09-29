@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import eventBus from '../../utlis/eventBus'
 export default {
   data () {
     return {
@@ -64,6 +65,9 @@ export default {
   },
   created () {
     this.getuserInfo()
+    eventBus.$on('updataUser', () => {
+      this.getuserInfo()
+    })
   }
 }
 </script>
