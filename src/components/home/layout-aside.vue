@@ -6,13 +6,8 @@
     <!-- router属性 为true时，启用路由 -->
     <!-- :router = 'true' =>router -->
     <!-- index 类似 to -->
-    <el-menu
-      router
-      style="width:201px"
-      background-color="#353b4e"
-      text-color=" #adafb5"
-      active-text-color="#ffd04b"
-    >
+    <el-menu router style="width:201px" background-color="#353b4e" text-color=" #adafb5"
+      active-text-color="#ffd04b">
       <!-- 首页 -->
       <el-menu-item index="/home">
         <i class="el-icon-s-home"></i>

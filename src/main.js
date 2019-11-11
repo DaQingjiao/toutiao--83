@@ -24,5 +24,6 @@ Vue.use(Axios)
 
 new Vue({
   router,
+  // 使用一个指定的组件，对div容器进行“覆盖渲染”
   render: h => h(App)
 }).$mount('#app')
